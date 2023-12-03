@@ -1,4 +1,4 @@
-from interactsAuth import *
+from interactsUIs import *
 
 if __name__ == "__main__":
     auth.show()

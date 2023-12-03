@@ -721,3 +721,208 @@ class ChangePasswordUI(object):
         self.AuthrroizationLabel.setText(_translate("Widget", "Восстановление"))
         self.PassLabel.setText(_translate("Widget", "Введите новый пароль:"))
         self.finishButton.setText(_translate("Widget", "Сменить пароль"))
+
+class Game2UI(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(800, 600)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(134, 194, 50))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 194, 50))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(34, 38, 41))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 194, 50))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 194, 50))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(240, 240, 240))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(34, 38, 41))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(134, 194, 50))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(34, 38, 41))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(34, 38, 41))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        Form.setPalette(palette)
+        self.TimeLabel = QtWidgets.QLabel(Form)
+        self.TimeLabel.setGeometry(QtCore.QRect(30, 10, 241, 71))
+        font = QtGui.QFont()
+        font.setPointSize(30)
+        self.TimeLabel.setFont(font)
+        self.TimeLabel.setObjectName("TimeLabel")
+        self.backLabel3 = ClickedLabel(Form)
+        self.backLabel3.setGeometry(QtCore.QRect(420, 450, 91, 91))
+        self.backLabel3.setStyleSheet("transition: background-color 0.5s;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 4px ridge #71A429;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #86c232;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.backLabel3.setText("")
+        self.backLabel3.setObjectName("backLabel3")
+        self.fieldLabel1 = ClickedLabel(Form)
+        self.fieldLabel1.setGeometry(QtCore.QRect(270, 130, 91, 91))
+        self.fieldLabel1.setStyleSheet("transition: background-color 0.5s;\n"
+"font: 42pt \"Tw Cen MT Condensed Extra Bold\" ;\n"
+"color: #ffF;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 5px groove #A6ED44;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #A6ED44;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.fieldLabel1.setAlignment(QtCore.Qt.AlignCenter)
+        self.fieldLabel1.setObjectName("fieldLabel1")
+        self.fieldLabel2 = ClickedLabel(Form)
+        self.fieldLabel2.setGeometry(QtCore.QRect(450, 130, 91, 91))
+        self.fieldLabel2.setStyleSheet("transition: background-color 0.5s;\n"
+"font: 42pt \"Tw Cen MT Condensed Extra Bold\" ;\n"
+"color: #ffF;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 5px groove #A6ED44;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #A6ED44;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.fieldLabel2.setAlignment(QtCore.Qt.AlignCenter)
+        self.fieldLabel2.setObjectName("fieldLabel2")
+        self.backLabel2 = ClickedLabel(Form)
+        self.backLabel2.setGeometry(QtCore.QRect(300, 450, 91, 91))
+        self.backLabel2.setStyleSheet("transition: background-color 0.5s;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 4px ridge #71A429;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #86c232;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.backLabel2.setText("")
+        self.backLabel2.setObjectName("backLabel2")
+        self.backLabel4 = ClickedLabel(Form)
+        self.backLabel4.setGeometry(QtCore.QRect(540, 450, 91, 91))
+        self.backLabel4.setStyleSheet("transition: background-color 0.5s;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 4px ridge #71A429;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #86c232;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.backLabel4.setText("")
+        self.backLabel4.setObjectName("backLabel4")
+        self.backLabel1 = ClickedLabel(Form)
+        self.backLabel1.setGeometry(QtCore.QRect(180, 450, 91, 91))
+        self.backLabel1.setStyleSheet("transition: background-color 0.5s;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 4px ridge #71A429;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #86c232;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.backLabel1.setText("")
+        self.backLabel1.setObjectName("backLabel1")
+        self.fieldLabel3 = ClickedLabel(Form)
+        self.fieldLabel3.setGeometry(QtCore.QRect(270, 280, 91, 91))
+        self.fieldLabel3.setStyleSheet("transition: background-color 0.5s;\n"
+"font: 42pt \"Tw Cen MT Condensed Extra Bold\" ;\n"
+"color: #ffF;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 5px groove #A6ED44;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #A6ED44;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.fieldLabel3.setAlignment(QtCore.Qt.AlignCenter)
+        self.fieldLabel3.setObjectName("fieldLabel3")
+        self.fieldLabel4 = ClickedLabel(Form)
+        self.fieldLabel4.setGeometry(QtCore.QRect(450, 280, 91, 91))
+        self.fieldLabel4.setStyleSheet("transition: background-color 0.5s;\n"
+"font: 42pt \"Tw Cen MT Condensed Extra Bold\" ;\n"
+"color: #ffF;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 5px groove #A6ED44;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #A6ED44;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.fieldLabel4.setAlignment(QtCore.Qt.AlignCenter)
+        self.fieldLabel4.setObjectName("fieldLabel4")
+        self.checkButton = QtWidgets.QPushButton(Form)
+        self.checkButton.setGeometry(QtCore.QRect(550, 30, 231, 71))
+        font = QtGui.QFont()
+        font.setFamily("Tw Cen MT Condensed Extra Bold")
+        font.setPointSize(22)
+        font.setBold(False)
+        font.setItalic(False)
+        self.checkButton.setFont(font)
+        self.checkButton.setStyleSheet("transition: background-color 0.5s;\n"
+"font: 22 pt \"Tw Cen MT Condensed Extra Bold\" ;\n"
+"color: #ffF;\n"
+"  margin-bottom: 10px;\n"
+"  padding: 5px;\n"
+"\n"
+"  text-align: center;\n"
+"  border: 5px groove #A6ED44;\n"
+"  border-radius: 10px;\n"
+"  cursor: move;\n"
+"  background-color: #A6ED44;\n"
+"\n"
+"  transition: background-color 0.5s;")
+        self.checkButton.setObjectName("checkButton")
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.TimeLabel.setText(_translate("Form", "Время:"))
+        self.checkButton.setText(_translate("Form", "Проверить"))

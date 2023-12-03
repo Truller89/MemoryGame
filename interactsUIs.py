@@ -5,7 +5,7 @@ import pickle
 
 from UserInterfaces import *
 from WorkFunctions import *
-from interactsMenu import *
+from gameLogicUIs import *
 
 app = QApplication(sys.argv)
 whoAmI = None
@@ -108,11 +108,19 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
 
         self.ButtonExit.clicked.connect(self.exiting)
         self.close.clicked.connect(self.closing)
+        self.ButtonStart.clicked.connect(self.startGame)
+
+    def startGame(self):
+        game = Game2(10) #todo выбор настроек убрать 10
+        self.hide()
+        game.show()
+
 
     def closing(self):
         app.exit()
 
     def exiting(self):
+        global auth
         whoAmI = None
         self.hide()
         auth.show()
