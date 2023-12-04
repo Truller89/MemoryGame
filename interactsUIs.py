@@ -111,7 +111,7 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
         self.ButtonStart.clicked.connect(self.startGame)
 
     def startGame(self):
-        game = Game2(10) #todo выбор настроек убрать 10
+        game = pregameSettings(self, app)
         self.hide()
         game.show()
 
@@ -152,12 +152,6 @@ class Register1(QtWidgets.QMainWindow, Register1UI):
         self.close.setPixmap(self.pixmap)
         self.close.move(725, 525)
         self.close.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.close = ClickedLabel(self)
-        self.close.resize(75, 75)
-        self.pixmap = QtGui.QPixmap('exit.png')
-        self.close.setPixmap(self.pixmap)
-        self.close.move(725, 525)
-        self.close.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 
         self.NextButton.clicked.connect(self.regs)
         self.logo.clicked.connect(self.toMain)
@@ -170,6 +164,7 @@ class Register1(QtWidgets.QMainWindow, Register1UI):
         self.hide()
         auth.show()
         del self
+
     def regs(self):
         if self.NameField.text() != "" and self.familyField.text() != "" and self.GroupField.text() != "" and self.LoginField.text() and self.PasswordField.text() != "" :
             if checkRegister(self.LoginField.text()):
@@ -362,7 +357,7 @@ class EnteringAnswers(QtWidgets.QMainWindow, EnteringAnswersUI):
             self.hide()
             error = QtWidgets.QMessageBox()
             error.setWindowTitle("Ошибка")
-            error.setText("Введенные данные не совпадают")
+            error.setText("Введенные данные не верны")
             error.buttonClicked.connect(lambda: self.show())
             error.exec_()
 
