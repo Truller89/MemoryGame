@@ -4,7 +4,7 @@ import sys
 import pickle, random, time
 
 from UserInterfaces import *
-
+#todo надпись запоминай и кнопку выхода во время игры
 class Game2(QMainWindow, Game2UI):
     def __init__(self, delay, figure, menu, appp):
         super().__init__()
@@ -13,6 +13,7 @@ class Game2(QMainWindow, Game2UI):
         self.setupUi(self)
         self.delay = delay
         self.figure = figure
+        self.isNowLearn = False
         self.setFixedSize(800, 600)
         self.boxes = [self.fieldLabel1, self.fieldLabel2, self.fieldLabel3, self.fieldLabel4, self.backLabel1,
                       self.backLabel2, self.backLabel3, self.backLabel4]
@@ -54,11 +55,10 @@ class Game2(QMainWindow, Game2UI):
 
     def showSide(self):
         self.checkButton.show()
-        self.TimeLabel.show()
         for i in range(len(self.boxes) // 2, len(self.boxes)):
             self.boxes[i].show()
 
-    def startGame(self):  # todo fix checkButton crash before start
+    def startGame(self):
         print(10)
         self.showGame()
         self.startButton.hide()
@@ -78,11 +78,13 @@ class Game2(QMainWindow, Game2UI):
         self.correct = answers + [0,0,0,0]
         self.values = self.correct
         self.fillBoxesByValue()
+        self.isNowLearn = True
 
 
     def startPlaying(self):
         self.values = [0,0,0,0,1,2,3,4]
         self.fillBoxesByValue()
+        self.isNowLearn = False
         self.start = time.time()
 
     def checkAnswers(self):
@@ -90,23 +92,35 @@ class Game2(QMainWindow, Game2UI):
             work_time = (time.time() - self.start)
             print(work_time)
             result = results(self.menu, self.app, work_time)
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            result.setGeometry(place)
             self.hide()
             result.show()
             del self
         else:
             print("Nope")
-
+#todo время в ретерне для показа результата всегда три знака после точки
     def fillBoxesByValue(self):
-        for i in range(len(self.boxes)):
-            if self.values[i] == 0:
-                self.boxes[i].setText("")
-                self.makeEmpty(self.boxes[i])
-            else:
-                self.boxes[i].setText(str(self.values[i]))
-                self.makeFilled(self.boxes[i])
+        if self.figure == 0:
+            for i in range(len(self.boxes)):
+                if self.values[i] == 0:
+                    self.boxes[i].setText("")
+                    self.makeEmpty(self.boxes[i])
+                else:
+                    self.boxes[i].setText(str(self.values[i]))
+                    self.makeFilled(self.boxes[i])
+        else:
+            for i in range(len(self.boxes)):
+                if self.values[i] == 0:
+                    self.boxes[i].setPixmap(QtGui.QPixmap("figures/" + str(self.values[i]) + '.png'))
+                    self.makeEmpty(self.boxes[i])
+                else:
+                    self.boxes[i].setPixmap(QtGui.QPixmap("figures/" + str(self.values[i]) + '.png'))
+                    self.makeFilled(self.boxes[i])
 
     def clickOnBox(self, number):
-        if self.selected == None and self.values[number] != 0:
+        if self.selected == None and self.values[number] != 0 and not self.isNowLearn:
             self.selected = number
             self.makeSelected(self.boxes[number])
         elif self.selected == number:
@@ -163,9 +177,6 @@ class Game2(QMainWindow, Game2UI):
                               "\n"
                               "  transition: background-color 0.5s;")
 
-
-#todo adjust на регистрацию и забыли пароль
-
 class Game3(QMainWindow, Game3UI):
     def __init__(self, delay, figure, menu, appp):
         super().__init__()
@@ -174,6 +185,7 @@ class Game3(QMainWindow, Game3UI):
         self.setupUi(self)
         self.delay = delay
         self.figure = figure
+        self.isNowLearn = False
         self.setFixedSize(800, 600)
         self.boxes = [self.fieldLabel1, self.fieldLabel2, self.fieldLabel3, self.fieldLabel4, self.fieldLabel5, self.fieldLabel6, self.fieldLabel7, self.fieldLabel8, self.fieldLabel9,  self.backLabel1,
                       self.backLabel2, self.backLabel3, self.backLabel4,  self.backLabel5,
@@ -216,11 +228,10 @@ class Game3(QMainWindow, Game3UI):
 
     def showSide(self):
         self.checkButton.show()
-        self.TimeLabel.show()
         for i in range(len(self.boxes) // 2, len(self.boxes)):
             self.boxes[i].show()
 
-    def startGame(self):  # todo fix checkButton crash before start
+    def startGame(self):
         print(10)
         self.showGame()
         self.startButton.hide()
@@ -240,11 +251,13 @@ class Game3(QMainWindow, Game3UI):
         self.correct = answers + [0,0,0,0,0,0,0,0,0]
         self.values = self.correct
         self.fillBoxesByValue()
+        self.isNowLearn = True
 
 
     def startPlaying(self):
         self.values = [0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9]
         self.fillBoxesByValue()
+        self.isNowLearn = False
         self.start = time.time()
 
     def checkAnswers(self):
@@ -252,6 +265,9 @@ class Game3(QMainWindow, Game3UI):
             work_time = (time.time() - self.start)
             print(work_time)
             result = results(self.menu, self.app, work_time)
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            result.setGeometry(place)
             self.hide()
             result.show()
             del self
@@ -259,16 +275,25 @@ class Game3(QMainWindow, Game3UI):
             print("Nope")
 
     def fillBoxesByValue(self):
-        for i in range(len(self.boxes)):
-            if self.values[i] == 0:
-                self.boxes[i].setText("")
-                self.makeEmpty(self.boxes[i])
-            else:
-                self.boxes[i].setText(str(self.values[i]))
-                self.makeFilled(self.boxes[i])
+        if self.figure == 0:
+            for i in range(len(self.boxes)):
+                if self.values[i] == 0:
+                    self.boxes[i].setText("")
+                    self.makeEmpty(self.boxes[i])
+                else:
+                    self.boxes[i].setText(str(self.values[i]))
+                    self.makeFilled(self.boxes[i])
+        else:
+            for i in range(len(self.boxes)):
+                if self.values[i] == 0:
+                    self.boxes[i].setPixmap(QtGui.QPixmap("figures/" + str(self.values[i]) + '.png'))
+                    self.makeEmpty(self.boxes[i])
+                else:
+                    self.boxes[i].setPixmap(QtGui.QPixmap("figures/" + str(self.values[i]) + '.png'))
+                    self.makeFilled(self.boxes[i])
 
     def clickOnBox(self, number):
-        if self.selected == None and self.values[number] != 0:
+        if self.selected == None and self.values[number] != 0 and not self.isNowLearn:
             self.selected = number
             self.makeSelected(self.boxes[number])
         elif self.selected == number:
@@ -332,6 +357,7 @@ class Game4(QMainWindow, Game4UI):
         self.menu = menu
         self.setupUi(self)
         self.delay = delay
+        self.isNowLearn = False
         self.figure = figure
         self.setFixedSize(800, 600)
         self.boxes = [self.fieldLabel1, self.fieldLabel2, self.fieldLabel3, self.fieldLabel4, self.fieldLabel5, self.fieldLabel6, self.fieldLabel7, self.fieldLabel8, self.fieldLabel9, self.fieldLabel10, self.fieldLabel11, self.fieldLabel12, self.fieldLabel13, self.fieldLabel14, self.fieldLabel15, self.fieldLabel16,  self.backLabel1,
@@ -375,11 +401,10 @@ class Game4(QMainWindow, Game4UI):
 
     def showSide(self):
         self.checkButton.show()
-        self.TimeLabel.show()
         for i in range(len(self.boxes) // 2, len(self.boxes)):
             self.boxes[i].show()
 
-    def startGame(self): #todo fix checkButton crash before start
+    def startGame(self):
         self.showGame()
         self.startButton.hide()
         self.hideSide()
@@ -398,11 +423,13 @@ class Game4(QMainWindow, Game4UI):
         self.correct = answers + [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         self.values = self.correct
         self.fillBoxesByValue()
+        self.isNowLearn = True
 
 
     def startPlaying(self):
         self.values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
         self.fillBoxesByValue()
+        self.isNowLearn = False
         self.start = time.time()
 
     def checkAnswers(self):
@@ -410,6 +437,9 @@ class Game4(QMainWindow, Game4UI):
             work_time = (time.time() - self.start)
             print(work_time)
             result = results(self.menu, self.app, work_time)
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            result.setGeometry(place)
             self.hide()
             result.show()
             del self
@@ -417,16 +447,29 @@ class Game4(QMainWindow, Game4UI):
             print("Nope")
 
     def fillBoxesByValue(self):
-        for i in range(len(self.boxes)):
-            if self.values[i] == 0:
-                self.boxes[i].setText("")
-                self.makeEmpty(self.boxes[i])
-            else:
-                self.boxes[i].setText(str(self.values[i]))
-                self.makeFilled(self.boxes[i])
+        if self.figure == 0:
+            for i in range(len(self.boxes)):
+                if self.values[i] == 0:
+                    self.boxes[i].setText("")
+                    self.makeEmpty(self.boxes[i])
+                else:
+                    self.boxes[i].setText(str(self.values[i]))
+                    self.makeFilled(self.boxes[i])
+        else:
+            for i in range(len(self.boxes)):
+                if self.values[i] == 0:
+                    self.boxes[i].setPixmap(QtGui.QPixmap( "figures/"+ str(self.values[i]) + '.png'))
+                    self.makeEmpty(self.boxes[i])
+                else:
+                    self.boxes[i].setPixmap(QtGui.QPixmap( "figures/"+ str(self.values[i]) + '.png'))
+                    self.makeFilled(self.boxes[i])
+
+
+
+
 
     def clickOnBox(self, number):
-        if self.selected == None and self.values[number] != 0:
+        if self.selected == None and self.values[number] != 0 and not self.isNowLearn:
             self.selected = number
             self.makeSelected(self.boxes[number])
         elif self.selected == number:
@@ -525,19 +568,25 @@ class pregameSettings(QMainWindow, pregameSettingsUI):
             figure = 0
         else:
             figure = 1
-        if self.radioSize2.isChecked(): #todo передать app, menu
+        if self.radioSize2.isChecked():
             game = Game2(delay, figure, self.menu, self.app)
         elif self.radioSize3.isChecked():
             game = Game3(delay, figure, self.menu, self.app)
         else:
             game = Game4(delay, figure, self.menu, self.app)
-        game.show()     #todo запретить тыкать по кнопкам во время запоминания и убрать кнопку проверить
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        game.setGeometry(place)
+        game.show()
         self.hide()
 
     def closing(self):
         self.app.exit()
 
     def toMain(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        self.menu.setGeometry(place)
         self.hide()
         self.menu.show()
         del self
@@ -570,20 +619,15 @@ class results(resultsUI, QMainWindow): #todo проверить неврное �
         self.close.clicked.connect(self.closing)
 
     def back(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        self.menu.setGeometry(place)
         self.hide()
         self.menu.show()
         del self
 
     def closing(self):
         self.app.exit()
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     import sys

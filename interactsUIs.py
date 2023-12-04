@@ -18,6 +18,9 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
         self.PasswrodEnterField.setEchoMode(QtWidgets.QLineEdit.Password)
         self.LoginEnterField.setMaxLength(20)
         self.PasswrodEnterField.setMaxLength(20)
+        self.ForgetPasswordLabelButton.adjustSize()
+        self.RegisterButtonLabel.adjustSize()
+        self.SaveMeGAlochka.adjustSize()
 
         self.AuthorizationFrame.move(250, 150)
         self.logo = QLabel(self)
@@ -55,6 +58,9 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
                 self.LoginEnterField.clear()
                 self.PasswrodEnterField.clear()
             global menu
+            place = self.frameGeometry()
+            place.setY(place.y()+30)
+            menu.setGeometry(place)
             menu.show()
             self.hide()
         else:
@@ -71,6 +77,9 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
         self.LoginEnterField.clear()
         self.PasswrodEnterField.clear()
         self.reg = Register1()
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        self.reg.setGeometry(place)
         self.reg.show()
         self.hide()
 
@@ -78,6 +87,9 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
         self.LoginEnterField.clear()
         self.PasswrodEnterField.clear()
         self.changing = ForgetPassword()
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        self.changing.setGeometry(place)
         self.changing.show()
         self.hide()
 
@@ -112,9 +124,11 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
 
     def startGame(self):
         game = pregameSettings(self, app)
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        game.setGeometry(place)
         self.hide()
         game.show()
-
 
     def closing(self):
         app.exit()
@@ -122,6 +136,9 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
     def exiting(self):
         global auth
         whoAmI = None
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        auth.setGeometry(place)
         self.hide()
         auth.show()
 menu = MainMenu()
@@ -161,6 +178,9 @@ class Register1(QtWidgets.QMainWindow, Register1UI):
         app.exit()
 
     def toMain(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        auth.setGeometry(place)
         self.hide()
         auth.show()
         del self
@@ -177,6 +197,9 @@ class Register1(QtWidgets.QMainWindow, Register1UI):
                     error.exec_()
                 else:
                     self.reg = Register2(self.NameField.text(), self.familyField.text(), self.GroupField.text(), self.LoginField.text(), self.PasswordField.text())
+                    place = self.frameGeometry()
+                    place.setY(place.y() + 30)
+                    self.reg.setGeometry(place)
                     self.reg.show()
                     self.hide()
                     del self
@@ -233,6 +256,9 @@ class Register2(QtWidgets.QMainWindow, Register2UI):
         app.exit()
 
     def toMain(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        auth.setGeometry(place)
         self.hide()
         auth.show()
         del self
@@ -242,6 +268,9 @@ class Register2(QtWidgets.QMainWindow, Register2UI):
             global auth
             print(1)
             register(self.login, self.password, self.name, self.surname, self.group, self.MotherField.text(), self.PetField.text(), self.CityField.text())
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            auth.setGeometry(place)
             auth.show()
             self.hide()
             del self
@@ -284,6 +313,9 @@ class ForgetPassword(QtWidgets.QMainWindow, ForgetPasswordUI):
         app.exit()
 
     def toMain(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        auth.setGeometry(place)
         self.hide()
         auth.show()
         del self
@@ -292,6 +324,9 @@ class ForgetPassword(QtWidgets.QMainWindow, ForgetPasswordUI):
         if self.LoginField.text() != "":
             if not checkRegister(self.LoginField.text()):
                 self.answers = EnteringAnswers(self.LoginField.text())
+                place = self.frameGeometry()
+                place.setY(place.y() + 30)
+                self.answers.setGeometry(place)
                 self.answers.show()
                 self.hide()
                 del self
@@ -343,6 +378,9 @@ class EnteringAnswers(QtWidgets.QMainWindow, EnteringAnswersUI):
         app.exit()
 
     def toMain(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        auth.setGeometry(place)
         self.hide()
         auth.show()
         del self
@@ -350,6 +388,9 @@ class EnteringAnswers(QtWidgets.QMainWindow, EnteringAnswersUI):
     def check(self):
         if self.MotherField.text() != "" and self.PetField.text() != "" and self.CityField.text() != "" and isCorrectAnswers(self.login, self.MotherField.text(), self.CityField.text(), self.PetField.text()):
             self.changing = ChangePassword(self.login)
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            self.changing.setGeometry(place)
             self.changing.show()
             self.hide()
             del self
@@ -393,6 +434,9 @@ class ChangePassword(QtWidgets.QMainWindow, ChangePasswordUI):
         app.exit()
 
     def toMain(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        auth.setGeometry(place)
         self.hide()
         auth.show()
         del self
@@ -401,6 +445,9 @@ class ChangePassword(QtWidgets.QMainWindow, ChangePasswordUI):
         if len(self.PassField.text()) >= 8 and isNumsLettersIn(self.PassField.text()):
             changePassword(self.login, self.PassField.text())
             global auth
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            auth.setGeometry(place)
             auth.show()
             self.hide()
             del self

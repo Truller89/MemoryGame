@@ -155,7 +155,6 @@ class AuthorizationUI(object):
         self.RegisterButtonLabel.setText(_translate("Widget", "У меня нет аккаунта."))
         self.ForgetPasswordLabelButton.setText(_translate("Widget", "Забыли пароль?"))
 
-
 class MainMenuUI(object):
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
@@ -195,7 +194,7 @@ class MainMenuUI(object):
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
         self.AuthrroizationLabel.setPalette(palette)
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(24)
         font.setBold(False)
         font.setItalic(False)
         self.AuthrroizationLabel.setFont(font)
@@ -230,7 +229,7 @@ class MainMenuUI(object):
         self.ButtonStart.setText(_translate("Widget", "Игра памяти"))
         self.ButtonResults.setText(_translate("Widget", "Результаты"))
         self.ButtonSettings.setText(_translate("Widget", "Настройки"))
-        self.ButtonExit.setText(_translate("Widget", "Выход"))
+        self.ButtonExit.setText(_translate("Widget", "Выйти из аккаунта"))
 
 class Register1UI(object):
     def setupUi(self, Widget):
@@ -355,7 +354,8 @@ class Register1UI(object):
         self.labelLogin.setText(_translate("Widget", "Логин"))
         self.labelPassword.setText(_translate("Widget", "Пароль"))
         self.NextButton.setText(_translate("Widget", "Далее"))
-
+#todo сохранять результаты
+#todo шифрование результатов
 class Register2UI(object):
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
@@ -923,7 +923,7 @@ class Game2UI(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "MemoryGame"))
         self.TimeLabel.setText(_translate("Form", "Время:"))
         self.checkButton.setText(_translate("Form", "Проверить"))
 
@@ -1270,7 +1270,7 @@ class Game3UI(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "MemoryGame"))
         self.TimeLabel.setText(_translate("Form", "Время:"))
         self.checkButton.setText(_translate("Form", "Проверить"))
 
@@ -1827,7 +1827,7 @@ class Game4UI(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "MemoryGame"))
         self.TimeLabel.setText(_translate("Form", "Время:"))
         self.checkButton.setText(_translate("Form", "Проверить"))
 
@@ -1993,7 +1993,7 @@ class pregameSettingsUI(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         Widget.setPalette(palette)
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         Widget.setFont(font)
         icon = QtGui.QIcon.fromTheme("face-wink")
         Widget.setWindowIcon(icon)
@@ -2024,7 +2024,7 @@ class pregameSettingsUI(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.BrightText, brush)
         self.AuthorizationFrame.setPalette(palette)
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(14)
         font.setItalic(False)
         self.AuthorizationFrame.setFont(font)
         self.AuthorizationFrame.setFrameShape(QtWidgets.QFrame.Panel)
