@@ -761,12 +761,12 @@ class Game2UI(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         Form.setPalette(palette)
-        self.TimeLabel = QtWidgets.QLabel(Form)
-        self.TimeLabel.setGeometry(QtCore.QRect(30, 10, 241, 71))
+        self.ExitLabel = QtWidgets.QLabel(Form)
+        self.ExitLabel.setGeometry(QtCore.QRect(30, 10, 241, 71))
         font = QtGui.QFont()
         font.setPointSize(30)
-        self.TimeLabel.setFont(font)
-        self.TimeLabel.setObjectName("TimeLabel")
+        self.ExitLabel.setFont(font)
+        self.ExitLabel.setObjectName("TimeLabel")
         self.backLabel3 = ClickedLabel(Form)
         self.backLabel3.setGeometry(QtCore.QRect(420, 450, 91, 91))
         self.backLabel3.setStyleSheet("transition: background-color 0.5s;\n"
@@ -924,7 +924,7 @@ class Game2UI(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "MemoryGame"))
-        self.TimeLabel.setText(_translate("Form", "Время:"))
+        self.ExitLabel.setText(_translate("Form", "Выйти"))
         self.checkButton.setText(_translate("Form", "Проверить"))
 
 class Game3UI(object):
@@ -966,12 +966,12 @@ class Game3UI(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         Form.setPalette(palette)
-        self.TimeLabel = QtWidgets.QLabel(Form)
-        self.TimeLabel.setGeometry(QtCore.QRect(30, 10, 241, 71))
+        self.ExitLabel = QtWidgets.QLabel(Form)
+        self.ExitLabel.setGeometry(QtCore.QRect(30, 10, 241, 71))
         font = QtGui.QFont()
         font.setPointSize(30)
-        self.TimeLabel.setFont(font)
-        self.TimeLabel.setObjectName("TimeLabel")
+        self.ExitLabel.setFont(font)
+        self.ExitLabel.setObjectName("TimeLabel")
         self.backLabel5 = ClickedLabel(Form)
         self.backLabel5.setGeometry(QtCore.QRect(360, 500, 91, 91))
         self.backLabel5.setStyleSheet("transition: background-color 0.5s;\n"
@@ -1271,7 +1271,7 @@ class Game3UI(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "MemoryGame"))
-        self.TimeLabel.setText(_translate("Form", "Время:"))
+        self.ExitLabel.setText(_translate("Form", "Выйти"))
         self.checkButton.setText(_translate("Form", "Проверить"))
 
 class Game4UI(object):
@@ -1313,12 +1313,12 @@ class Game4UI(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         Form.setPalette(palette)
-        self.TimeLabel = QtWidgets.QLabel(Form)
-        self.TimeLabel.setGeometry(QtCore.QRect(10, -10, 241, 71))
+        self.ExitLabel = QtWidgets.QLabel(Form)
+        self.ExitLabel.setGeometry(QtCore.QRect(10, -10, 241, 71))
         font = QtGui.QFont()
         font.setPointSize(30)
-        self.TimeLabel.setFont(font)
-        self.TimeLabel.setObjectName("TimeLabel")
+        self.ExitLabel.setFont(font)
+        self.ExitLabel.setObjectName("TimeLabel")
         self.backLabel5 = ClickedLabel(Form)
         self.backLabel5.setGeometry(QtCore.QRect(10, 420, 91, 91))
         self.backLabel5.setStyleSheet("transition: background-color 0.5s;\n"
@@ -1828,7 +1828,7 @@ class Game4UI(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "MemoryGame"))
-        self.TimeLabel.setText(_translate("Form", "Время:"))
+        self.ExitLabel.setText(_translate("Form", "Выйти"))
         self.checkButton.setText(_translate("Form", "Проверить"))
 
 class pregameSettingsUI(object):

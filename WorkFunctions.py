@@ -1,5 +1,8 @@
 import pickle
 import hashlib
+from Crypto.PublicKey import RSA
+from Crypto.Random import get_random_bytes
+from Crypto.Cipher import AES, PKCS1_OAEP
 
 def login(login, password, save):
     with open("users.bin", "rb") as file:
@@ -80,7 +83,6 @@ def isCorrectAnswers(login, mother, city, pet):
         isOk = False
     return isOk
 
-
 def changePassword(login, password):
     with open("users.bin", "rb") as file:
         data = pickle.load(file)
@@ -91,8 +93,40 @@ def changePassword(login, password):
     with open("users.bin", "wb") as file:
         pickle.dump(data, file)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     hash = hashlib.sha256()
-    hash.update("root".encode())
+    hash.update("sqrt(ab)".encode())
     with open("users.bin", "wb") as file:
-        pickle.dump({"root": [hash.hexdigest(),'Truller','It works','Здесь могла быть ваша реклама']}, file)
+        pickle.dump({"admin": [hash.hexdigest(),'Truller','It works','Здесь могла быть ваша реклама']}, file)
+
+if __name__ == "__main__":
+    hash = hashlib.sha256()
+    hash.update("sqrt(ab)".encode())
+    code = hash.hexdigest()
+    key = RSA.generate(2048)
+
+    encrypted_key = key.exportKey(
+        passphrase=code,
+        pkcs=8,
+        protection="scryptAndAES128-CBC"
+    )
+
+    with open('private.bin', 'wb') as f:
+        f.write(encrypted_key)
+
+    with open('public.pem', 'wb') as f:
+        f.write(key.publickey().exportKey())
