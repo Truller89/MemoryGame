@@ -19,7 +19,6 @@ def saveResult(time, figure, size, who, delay):
     else:
         res = result(str(time)[:str(time).index(".") + 4], "Фигуры", str(size) + "x" + str(size), who, delay)
 
-    print(delay)
     with open('gameResults\\count.bin', 'rb') as f:
         count = f.read()
 
@@ -137,7 +136,6 @@ def isNumsLettersIn(text):
 def isCorrectAnswers(login, mother, city, pet):
     with open("users.bin", "rb") as file:
         data = pickle.load(file)
-        print(data)
     isOk = True
     hash1 = hashlib.sha256()
     hash1.update(mother.encode())

@@ -126,6 +126,22 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
         self.close.clicked.connect(self.closing)
         self.ButtonStart.clicked.connect(self.startGame)
         self.ButtonResults.clicked.connect(self.showResults)
+        self.ButtonSettings.clicked.connect(self.changePassword)
+
+    def changePassword(self):
+        global whoAmI
+        if whoAmI != "admin":
+            self.changing = ForgetPassword()
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            self.changing.setGeometry(place)
+            self.changing.show()
+            self.hide()
+        else:
+            error = QtWidgets.QMessageBox()
+            error.setWindowTitle("Ошибка")
+            error.setText("Невозможно сменить пароль администратора")
+            error.exec_()
 
 
     def showResults(self):
@@ -289,7 +305,6 @@ class Register2(QtWidgets.QMainWindow, Register2UI):
     def regs(self):
         if self.MotherField.text() != "" and self.PetField.text() != "" and self.CityField.text() != "":
             global auth
-            print(1)
             register(self.login, self.password, self.name, self.surname, self.group, self.MotherField.text(), self.PetField.text(), self.CityField.text())
             place = self.frameGeometry()
             place.setY(place.y() + 30)

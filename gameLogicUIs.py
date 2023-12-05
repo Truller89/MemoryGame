@@ -401,7 +401,6 @@ class results(resultsUI, QMainWindow):
 
         self.returnButton.clicked.connect(lambda: self.back())
         self.close.clicked.connect(self.closing)
-        print(self.whoAmI)
         saveResult(self.time, self.figure, self.size, self.whoAmI, self.delay)
 
 

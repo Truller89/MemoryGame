@@ -228,7 +228,7 @@ class MainMenuUI(object):
         self.AuthrroizationLabel.setText(_translate("Widget", "Главное меню"))
         self.ButtonStart.setText(_translate("Widget", "Игра памяти"))
         self.ButtonResults.setText(_translate("Widget", "Результаты"))
-        self.ButtonSettings.setText(_translate("Widget", "Настройки"))
+        self.ButtonSettings.setText(_translate("Widget", "Сменить пароль"))
         self.ButtonExit.setText(_translate("Widget", "Выйти из аккаунта"))
 
 class Register1UI(object):
