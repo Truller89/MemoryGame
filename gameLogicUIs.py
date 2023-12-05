@@ -3,7 +3,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 import pickle, random, time
 
+from WorkFunctions import *
 from UserInterfaces import *
+
 
 class basegame():
     def makeEmpty(self, box):
@@ -53,8 +55,7 @@ class basegame():
     def checkAnswers(self):
         if self.values == self.correct:
             work_time = (time.time() - self.start)
-            print(work_time)
-            result = results(self.menu, self.app, work_time)
+            result = results(self.menu, self.app, work_time, self.figure, self.size, self.delay, self.whoAmI)
             place = self.frameGeometry()
             place.setY(place.y() + 30)
             result.setGeometry(place)
@@ -62,7 +63,10 @@ class basegame():
             result.show()
             del self
         else:
-            print("Nope")
+            error = QtWidgets.QMessageBox()
+            error.setWindowTitle("Ошибка")
+            error.setText("Не всё расставлено верно.")
+            error.exec_()
 
     def fillBoxesByValue(self):
         if self.figure == 0:
@@ -104,7 +108,6 @@ class basegame():
 
     def hideSide(self):
         self.checkButton.hide()
-        self.ExitLabel.hide()
         for i in range(len(self.boxes) // 2, len(self.boxes)):
             self.boxes[i].hide()
 
@@ -114,7 +117,6 @@ class basegame():
             self.boxes[i].show()
 
     def startGame(self):
-        print(10)
         self.showGame()
         self.startButton.hide()
         self.hideSide()
@@ -127,15 +129,25 @@ class basegame():
         self.startPlaying()
         self.fillBoxesByValue()
 
-#todo надпись запоминай и кнопку выхода во время игры
+    def toMain(self):
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        self.menu.setGeometry(place)
+        self.hide()
+        self.menu.show()
+        del self
+#todo settings
+#todo надпись запоминай
 class Game2(QMainWindow, Game2UI, basegame):
-    def __init__(self, delay, figure, menu, appp):
+    def __init__(self, delay, figure, menu, appp, whoAmI):
         super().__init__()
         self.app = appp
         self.menu = menu
         self.setupUi(self)
         self.delay = delay
+        self.whoAmI = whoAmI
         self.figure = figure
+        self.size = 2
         self.isNowLearn = False
         self.setFixedSize(800, 600)
         self.boxes = [self.fieldLabel1, self.fieldLabel2, self.fieldLabel3, self.fieldLabel4, self.backLabel1,
@@ -148,6 +160,9 @@ class Game2(QMainWindow, Game2UI, basegame):
         self.startButton.move(250, 150)
         self.startButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.checkButton.setAlignment(QtCore.Qt.AlignCenter)
+        self.ExitLabel.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.checkButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.ExitLabel.adjustSize()
 
         self.selected = None
         for i in range(len(self.boxes)):
@@ -158,11 +173,11 @@ class Game2(QMainWindow, Game2UI, basegame):
 
         for i in range(len(self.boxes)):
             self.boxes[i].hide()
-        self.ExitLabel.hide()
         self.checkButton.hide()
 
         self.startButton.clicked.connect(lambda: self.startGame())
         self.checkButton.clicked.connect(self.checkAnswers)
+        self.ExitLabel.clicked.connect(self.toMain)
 
     def generateShowCorrect(self):
         answers = [1,2,3,4]
@@ -179,13 +194,15 @@ class Game2(QMainWindow, Game2UI, basegame):
         self.start = time.time()
 
 class Game3(QMainWindow, Game3UI, basegame):
-    def __init__(self, delay, figure, menu, appp):
+    def __init__(self, delay, figure, menu, appp, whoAmI):
         super().__init__()
         self.app = appp
         self.menu = menu
         self.setupUi(self)
         self.delay = delay
+        self.whoAmI = whoAmI
         self.figure = figure
+        self.size = 3
         self.isNowLearn = False
         self.setFixedSize(800, 600)
         self.boxes = [self.fieldLabel1, self.fieldLabel2, self.fieldLabel3, self.fieldLabel4, self.fieldLabel5, self.fieldLabel6, self.fieldLabel7, self.fieldLabel8, self.fieldLabel9,  self.backLabel1,
@@ -199,6 +216,9 @@ class Game3(QMainWindow, Game3UI, basegame):
         self.startButton.move(250, 150)
         self.startButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.checkButton.setAlignment(QtCore.Qt.AlignCenter)
+        self.ExitLabel.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.checkButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.ExitLabel.adjustSize()
 
         self.selected = None
         for i in range(len(self.boxes)):
@@ -209,11 +229,11 @@ class Game3(QMainWindow, Game3UI, basegame):
 
         for i in range(len(self.boxes)):
             self.boxes[i].hide()
-        self.ExitLabel.hide()
         self.checkButton.hide()
 
         self.startButton.clicked.connect(lambda: self.startGame())
         self.checkButton.clicked.connect(self.checkAnswers)
+        self.ExitLabel.clicked.connect(self.toMain)
 
     def generateShowCorrect(self):
         answers = [1,2,3,4,5,6,7,8,9]
@@ -230,14 +250,16 @@ class Game3(QMainWindow, Game3UI, basegame):
         self.start = time.time()
 
 class Game4(QMainWindow, Game4UI, basegame):
-    def __init__(self, delay, figure, menu, appp):
+    def __init__(self, delay, figure, menu, appp, whoAmI):
         super().__init__()
         self.app = appp
         self.menu = menu
         self.setupUi(self)
         self.delay = delay
+        self.whoAmI = whoAmI
         self.isNowLearn = False
         self.figure = figure
+        self.size = 4
         self.setFixedSize(800, 600)
         self.boxes = [self.fieldLabel1, self.fieldLabel2, self.fieldLabel3, self.fieldLabel4, self.fieldLabel5, self.fieldLabel6, self.fieldLabel7, self.fieldLabel8, self.fieldLabel9, self.fieldLabel10, self.fieldLabel11, self.fieldLabel12, self.fieldLabel13, self.fieldLabel14, self.fieldLabel15, self.fieldLabel16,  self.backLabel1,
                       self.backLabel2, self.backLabel3, self.backLabel4,  self.backLabel5,
@@ -250,6 +272,9 @@ class Game4(QMainWindow, Game4UI, basegame):
         self.startButton.move(250, 150)
         self.startButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.checkButton.setAlignment(QtCore.Qt.AlignCenter)
+        self.ExitLabel.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.checkButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.ExitLabel.adjustSize()
 
         self.selected = None
         for i in range(len(self.boxes)):
@@ -260,11 +285,11 @@ class Game4(QMainWindow, Game4UI, basegame):
 
         for i in range(len(self.boxes)):
             self.boxes[i].hide()
-        self.ExitLabel.hide()
         self.checkButton.hide()
 
         self.startButton.clicked.connect(lambda: self.startGame())
         self.checkButton.clicked.connect(self.checkAnswers)
+        self.ExitLabel.clicked.connect(self.toMain)
 
     def generateShowCorrect(self):
         answers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
@@ -282,10 +307,11 @@ class Game4(QMainWindow, Game4UI, basegame):
 
 #todo иногда крашиться блять просто так, а иногда нет хуй пойми почему
 class pregameSettings(QMainWindow, pregameSettingsUI):
-    def __init__(self, menu, appp):
+    def __init__(self, menu, appp, whoAmI):
         super().__init__()
         self.setupUi(self)
         self.menu = menu
+        self.whoAmI = whoAmI
         self.app = appp
         self.setFixedSize(800, 600)
         self.startButton.setStyleSheet('background: rgb(134, 194, 50);')
@@ -323,11 +349,11 @@ class pregameSettings(QMainWindow, pregameSettingsUI):
         else:
             figure = 1
         if self.radioSize2.isChecked():
-            game = Game2(delay, figure, self.menu, self.app)
+            game = Game2(delay, figure, self.menu, self.app, self.whoAmI)
         elif self.radioSize3.isChecked():
-            game = Game3(delay, figure, self.menu, self.app)
+            game = Game3(delay, figure, self.menu, self.app, self.whoAmI)
         else:
-            game = Game4(delay, figure, self.menu, self.app)
+            game = Game4(delay, figure, self.menu, self.app, self.whoAmI)
         place = self.frameGeometry()
         place.setY(place.y() + 30)
         game.setGeometry(place)
@@ -345,15 +371,19 @@ class pregameSettings(QMainWindow, pregameSettingsUI):
         self.menu.show()
         del self
 
-class results(resultsUI, QMainWindow): #todo проверить неврное окно должно выводить ошибку
-    def __init__(self, menu, appp, time):
+class results(resultsUI, QMainWindow):
+    def __init__(self, menu, appp, time, figure, size, delay, whoAmI):
         super().__init__()
         self.setupUi(self)
+        self.figure = figure
+        self.whoAmI = whoAmI
         self.setFixedSize(800, 600)
         self.returnButton.setStyleSheet('background: rgb(134, 194, 50);')
         self.menu = menu
+        self.delay = delay
         self.app = appp
         self.time = time
+        self.size = size
 
         self.AuthorizationFrame.move(250, 150)
         self.logo = QLabel(self)
@@ -371,8 +401,12 @@ class results(resultsUI, QMainWindow): #todo проверить неврное �
 
         self.returnButton.clicked.connect(lambda: self.back())
         self.close.clicked.connect(self.closing)
+        print(self.whoAmI)
+        saveResult(self.time, self.figure, self.size, self.whoAmI, self.delay)
+
 
     def back(self):
+
         place = self.frameGeometry()
         place.setY(place.y() + 30)
         self.menu.setGeometry(place)

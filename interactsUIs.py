@@ -8,7 +8,9 @@ from WorkFunctions import *
 from gameLogicUIs import *
 
 app = QApplication(sys.argv)
+key = None
 whoAmI = None
+
 class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
     def __init__(self):
         super().__init__()
@@ -54,6 +56,8 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
         if login(self.LoginEnterField.text(), self.PasswrodEnterField.text(),  self.SaveMeGAlochka.isChecked()):
             global whoAmI
             whoAmI = self.LoginEnterField.text()
+            global key
+            key = self.PasswrodEnterField.text()
             if not self.SaveMeGAlochka.isChecked():
                 self.LoginEnterField.clear()
                 self.PasswrodEnterField.clear()
@@ -121,9 +125,27 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
         self.ButtonExit.clicked.connect(self.exiting)
         self.close.clicked.connect(self.closing)
         self.ButtonStart.clicked.connect(self.startGame)
+        self.ButtonResults.clicked.connect(self.showResults)
+
+
+    def showResults(self):
+        global whoAmI
+        if whoAmI == "admin":
+            result = allResults(self)
+            place = self.frameGeometry()
+            place.setY(place.y() + 30)
+            result.setGeometry(place)
+            self.hide()
+            result.show()
+        else:
+            error = QtWidgets.QMessageBox()
+            error.setWindowTitle("Ошибка")
+            error.setText("Доступно только администратору")
+            error.exec_()
 
     def startGame(self):
-        game = pregameSettings(self, app)
+        global whoAmI
+        game = pregameSettings(self, app, whoAmI)
         place = self.frameGeometry()
         place.setY(place.y() + 30)
         game.setGeometry(place)
@@ -135,7 +157,8 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
 
     def exiting(self):
         global auth
-        whoAmI = None
+        global key
+        key = None
         place = self.frameGeometry()
         place.setY(place.y() + 30)
         auth.setGeometry(place)
@@ -281,7 +304,6 @@ class Register2(QtWidgets.QMainWindow, Register2UI):
             error.setText("Не все поля заполнены")
             error.buttonClicked.connect(lambda: self.show())
             error.exec_()
-
 
 class ForgetPassword(QtWidgets.QMainWindow, ForgetPasswordUI):
     def __init__(self):
@@ -458,3 +480,96 @@ class ChangePassword(QtWidgets.QMainWindow, ChangePasswordUI):
             error.setText("Пароль должен быть минимум 8 знаков, содержать минимум одну букву и цифру")
             error.buttonClicked.connect(lambda: self.show())
             error.exec_()
+
+class allResults(QtWidgets.QMainWindow, allResultsUI):
+    def __init__(self, login):
+        super().__init__()
+        self.login = login
+        self.setupUi(self)
+        self.setFixedSize(800,600)
+        self.backButton.setStyleSheet('background: rgb(134, 194, 50);')
+
+        self.AuthorizationFrame.move(175, 150)
+        self.logo = ClickedLabel(self)
+        self.logo.resize(220, 147)
+        self.pixmap = QtGui.QPixmap('image.png')
+        self.logo.setPixmap(self.pixmap)
+        self.logo.move(290, 10)
+        self.logo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.close = ClickedLabel(self)
+        self.close.resize(75, 75)
+        self.pixmap = QtGui.QPixmap('exit.png')
+        self.close.setPixmap(self.pixmap)
+        self.close.move(725, 525)
+        self.close.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+
+        self.backButton.clicked.connect(lambda : self.toMain())
+        self.logo.clicked.connect(self.toMain)
+        self.close.clicked.connect(self.closing)
+
+        self.tableWidget.setColumnCount(6)
+        self.tableWidget.setHorizontalHeaderLabels(["Участник", "Группа", "Результат", "Режим", "Запоминал", "Элементы"])
+        self.fillResult()
+
+    def fillResult(self):
+        with open('gameResults\\count.bin', 'rb') as f:
+            count = f.read()
+        intCount = int(str(count)[2:-1])
+        self.tableWidget.setRowCount(intCount)
+        global key
+        for i in range(intCount):
+            with open('gameResults\\game' + str(i) + ".bin", 'rb') as fobj:
+                private_key = RSA.import_key(
+                    open('private.bin').read(),
+                    passphrase=key
+                )
+
+                enc_session_key, nonce, tag, ciphertext = [
+                    fobj.read(x) for x in (private_key.size_in_bytes(), 16, 16, -1)
+                ]
+
+                cipher_rsa = PKCS1_OAEP.new(private_key)
+                session_key = cipher_rsa.decrypt(enc_session_key)
+
+                cipher_aes = AES.new(session_key, AES.MODE_EAX, nonce)
+                data = cipher_aes.decrypt_and_verify(ciphertext, tag)
+
+            currentResult = pickle.loads(data)
+
+            with open('usersInfo\\' + str(currentResult.who) + ".bin", 'rb') as fobj:
+                private_key = RSA.import_key(
+                    open('private.bin').read(),
+                    passphrase=key
+                )
+
+                enc_session_key, nonce, tag, ciphertext = [
+                    fobj.read(x) for x in (private_key.size_in_bytes(), 16, 16, -1)
+                ]
+
+                cipher_rsa = PKCS1_OAEP.new(private_key)
+                session_key = cipher_rsa.decrypt(enc_session_key)
+
+                cipher_aes = AES.new(session_key, AES.MODE_EAX, nonce)
+                data = cipher_aes.decrypt_and_verify(ciphertext, tag)
+
+            currentUser = pickle.loads(data)
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(currentUser.SurName + " " + currentUser.name[:1] + "."))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(currentUser.Group))
+            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(currentResult.timer + " cек"))
+            self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(currentResult.size))
+            self.tableWidget.setItem(i, 4, QtWidgets.QTableWidgetItem(str(currentResult.delay) + " cек"))
+            self.tableWidget.setItem(i, 5, QtWidgets.QTableWidgetItem(currentResult.figure))
+
+
+
+    def closing(self):
+        app.exit()
+
+    def toMain(self):
+        global menu
+        place = self.frameGeometry()
+        place.setY(place.y() + 30)
+        menu.setGeometry(place)
+        self.hide()
+        menu.show()
+        del self
