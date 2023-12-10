@@ -402,6 +402,7 @@ class results(resultsUI, QMainWindow):
         self.returnButton.clicked.connect(lambda: self.back())
         self.close.clicked.connect(self.closing)
         saveResult(self.time, self.figure, self.size, self.whoAmI, self.delay)
+        print("Saved")
 
 
     def back(self):

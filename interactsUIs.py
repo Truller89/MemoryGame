@@ -54,6 +54,7 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
 
     def auth(self):
         if login(self.LoginEnterField.text(), self.PasswrodEnterField.text(),  self.SaveMeGAlochka.isChecked()):
+            print("Logined")
             global whoAmI
             whoAmI = self.LoginEnterField.text()
             global key
@@ -68,6 +69,7 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
             menu.show()
             self.hide()
         else:
+            print("Unknown user")
             self.hide()
             self.LoginEnterField.clear()
             self.PasswrodEnterField.clear()
@@ -76,6 +78,7 @@ class Authorization(QtWidgets.QMainWindow, AuthorizationUI):
             error.setText("Введен неверный логин и/или пароль.")
             error.buttonClicked.connect(lambda: self.show())
             error.exec_()
+
 
     def regs(self):
         self.LoginEnterField.clear()
@@ -131,13 +134,14 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
     def changePassword(self):
         global whoAmI
         if whoAmI != "admin":
-            self.changing = ForgetPassword()
+            self.changing = ChangePassword(whoAmI)
             place = self.frameGeometry()
             place.setY(place.y() + 30)
             self.changing.setGeometry(place)
             self.changing.show()
             self.hide()
         else:
+            print("Not available to administrator")
             error = QtWidgets.QMessageBox()
             error.setWindowTitle("Ошибка")
             error.setText("Невозможно сменить пароль администратора")
@@ -154,6 +158,7 @@ class MainMenu(QtWidgets.QMainWindow, MainMenuUI):
             self.hide()
             result.show()
         else:
+            print("Avaible only for administrator")
             error = QtWidgets.QMessageBox()
             error.setWindowTitle("Ошибка")
             error.setText("Доступно только администратору")
@@ -244,6 +249,7 @@ class Register1(QtWidgets.QMainWindow, Register1UI):
                     del self
 
             else:
+                print("Login already exist")
                 self.hide()
                 error = QtWidgets.QMessageBox()
                 error.setWindowTitle("Ошибка")
@@ -550,7 +556,6 @@ class allResults(QtWidgets.QMainWindow, allResultsUI):
                 data = cipher_aes.decrypt_and_verify(ciphertext, tag)
 
             currentResult = pickle.loads(data)
-
             with open('usersInfo\\' + str(currentResult.who) + ".bin", 'rb') as fobj:
                 private_key = RSA.import_key(
                     open('private.bin').read(),
@@ -566,11 +571,10 @@ class allResults(QtWidgets.QMainWindow, allResultsUI):
 
                 cipher_aes = AES.new(session_key, AES.MODE_EAX, nonce)
                 data = cipher_aes.decrypt_and_verify(ciphertext, tag)
-
             currentUser = pickle.loads(data)
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(currentUser.SurName + " " + currentUser.name[:1] + "."))
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(currentUser.Group))
-            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(currentResult.timer + " cек"))
+            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(str(currentResult.timer) + " cек"))
             self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(currentResult.size))
             self.tableWidget.setItem(i, 4, QtWidgets.QTableWidgetItem(str(currentResult.delay) + " cек"))
             self.tableWidget.setItem(i, 5, QtWidgets.QTableWidgetItem(currentResult.figure))

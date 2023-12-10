@@ -118,7 +118,6 @@ def register(login, password, Name, SurName, Group, mother, pet, city):
         out_file.write(tag)
         out_file.write(ciphertext)
 
-
 def isNumsLettersIn(text):
     text = text.lower()
     letters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyz"
@@ -175,48 +174,48 @@ def changePassword(login, password):
 
 
 
-#if __name__ == "__main__":  #поставить только пользователя админа
-    # hash = hashlib.sha256()
-    # hash.update("sqrt(ab)".encode())
-    # with open("users.bin", "wb") as file:
-    #     pickle.dump({"admin": [hash.hexdigest(),'Truller','It works','Здесь могла быть ваша реклама']}, file)
+if __name__ == "__main__":  #поставить только пользователя админа
+    hash = hashlib.sha256()
+    hash.update("sqrt(ab)".encode())
+    with open("users.bin", "wb") as file:
+        pickle.dump({"admin": [hash.hexdigest(),'Truller','It works','Здесь могла быть ваша реклама']}, file)
 
-    # newUser = user("admin", "admin", "admin")
-    #
-    # with open('usersInfo\\' + str("admin") + ".bin", 'wb') as out_file:
-    #     recipient_key = RSA.import_key(
-    #         open('public.pem').read()
-    #     )
-    #
-    #     session_key = get_random_bytes(16)
-    #
-    #     cipher_rsa = PKCS1_OAEP.new(recipient_key)
-    #     out_file.write(cipher_rsa.encrypt(session_key))
-    #
-    #     cipher_aes = AES.new(session_key, AES.MODE_EAX)
-    #     data = pickle.dumps(newUser)
-    #     ciphertext, tag = cipher_aes.encrypt_and_digest(data)
-    #
-    #     out_file.write(cipher_aes.nonce)
-    #     out_file.write(tag)
-    #     out_file.write(ciphertext)
+    newUser = user("admin", "admin", "admin")
+
+    with open('usersInfo\\' + str("admin") + ".bin", 'wb') as out_file:
+        recipient_key = RSA.import_key(
+            open('public.pem').read()
+        )
+
+        session_key = get_random_bytes(16)
+
+        cipher_rsa = PKCS1_OAEP.new(recipient_key)
+        out_file.write(cipher_rsa.encrypt(session_key))
+
+        cipher_aes = AES.new(session_key, AES.MODE_EAX)
+        data = pickle.dumps(newUser)
+        ciphertext, tag = cipher_aes.encrypt_and_digest(data)
+
+        out_file.write(cipher_aes.nonce)
+        out_file.write(tag)
+        out_file.write(ciphertext)
 
 # if __name__ == "__main__":  #сгенерировать ключи
-#     # code = "sqrt(ab)"
-#     # key = RSA.generate(2048)
-#     #
-#     # encrypted_key = key.exportKey(
-#     #     passphrase=code,
-#     #     pkcs=8,
-#     #     protection="scryptAndAES128-CBC"
-#     # )
-#     #
-#     # with open('private.bin', 'wb') as f:
-#     #     f.write(encrypted_key)
-#     #
-#     # with open('public.pem', 'wb') as f:
-#     #     f.write(key.publickey().exportKey())
+#     code = "sqrt(ab)"
+#     key = RSA.generate(2048)
+#
+#     encrypted_key = key.exportKey(
+#         passphrase=code,
+#         pkcs=8,
+#         protection="scryptAndAES128-CBC"
+#     )
+#
+#     with open('private.bin', 'wb') as f:
+#         f.write(encrypted_key)
+#
+#     with open('public.pem', 'wb') as f:
+#         f.write(key.publickey().exportKey())
 
-# if __name__ == "__main__":  #поставить колво результов игр 0
-#     with open('gameResults\\count.bin', 'wb') as f:
-#         f.write("0".encode())
+if __name__ == "__main__":  #поставить колво результов игр 0
+    with open('gameResults\\count.bin', 'wb') as f:
+        f.write("0".encode())
